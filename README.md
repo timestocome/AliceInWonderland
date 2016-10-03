@@ -1,2 +1,5 @@
 # AliceInWonderland
-Exploring RNNs, LSTMs, GRUs using the Lewis Carroll text
+Exploring RNNs, LSTMs and or GRUs using the Lewis Carroll text
+
+
+Work in progress, only the RNN has been written so far
