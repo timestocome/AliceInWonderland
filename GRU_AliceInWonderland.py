@@ -12,6 +12,7 @@
 # updated to Theano version 0.8.0
 # adapted to read in 'Alice In Wonderland' and 'Through the Looking Glass' and generate text in same style 
 # improved comments and variable names
+# added regularization
 # removed sentence start/stop tokens so can more easily adapt to other types of input sequences
 # lots of streamlining to make code clearer and faster
 
@@ -20,7 +21,7 @@
 # try ReLU instead of sigmoid/tanh
 # add L1 and or L2 regularization to cost
 # stop after x examples randomly trained or some loss threshold met
-# adjust learning rate while training?
+# adjust learning rate while training, simple or new self adjusting method?
 
 
 
@@ -47,24 +48,27 @@ rng = np.random.RandomState(42) # set up random stream
 not_zero = 1e-6                 # avoid divide by zero errors
 
 
-
-# settings to tweak
+# network settings to tweak
 n_hidden = 128               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
-learning_rate = 0.05
-decay = 0.9
-print_output = 10            # print info for user how often during training epochs
-n_layers = 1                 # number of gru hidden layers ( hidden layer height )
+learning_rate = 0.005        # limits swing in gradients
+# lots more weights in this type network, use very small scales
+# set these to zero for no regularization
+l1 = 0.0000                     # L1 regularization scale
+l2 = 0.0001                     # L2 regularization scale
+
+decay = 0.9                  # weight for prior information
 length_of_text = 8           # size of string to feed into RNN
 n_bptt_truncate = -1  # threshold back propagation through time, -1 means no early cut off
 
-# misc
+
+# misc settings for outputing info to user and saving data
 number_of_words_to_generate = 12    # max number of words when generating sentences
 dump_output = 1000
 save_model = 10000
 
 ###############################################################################
-# Alice in Wonderland
+# Alice in Wonderland, Through the Looking Glass
 # Text read in, parsed and tokenized using ReadDataIntoWords.py
 # this should be broken into proper sentences but for testing I'm splitting
 #   it into 8 word strings, no punctuation
@@ -96,9 +100,10 @@ for i in range(n_train):
 x_t = np.array(x)
 y_t = np.array(y)
 
+
+# randomize data - should probably do this each epoch
 training_range = np.arange(len(y))
 training_range = np.random.permutation(training_range)
-
 
 x_train = []
 y_train = []
@@ -126,7 +131,9 @@ def word_to_index(i):
 v_index_to_word = np.vectorize(index_to_word)
 v_word_to_index = np.vectorize(word_to_index)
 
-
+#############################################################################
+# useful things
+print("Expected loss for random predictions: %f" %(np.log(unique_words)))
 
 #############################################################################
 # build GRU network
@@ -242,17 +249,20 @@ class GRU:
         o_error = T.sum(T.nnet.categorical_crossentropy(o, y))
         
         # Total cost (could? should? add regularization here)
-        # L1 = l1 * sum(abs(weights))
-        # L2 = l2 * sum(weights^2)
-        cost = o_error
-        
+        # L1 = l1 * sum(abs(weights)) --- drives some weights to zero, doesn't always work
+        # L2 = l2 * sum(weights^2) --- rotationally invariant
+        L2 = l2 * (V **2).sum() + (W **2).sum() + (U **2).sum()
+        L1 = l1 * (np.abs(V)).sum() + (np.abs(W)).sum() + (np.abs(U)).sum()
+        cost = o_error 
+        cost_with_regularization = o_error + L1 + L2
+
         # Gradients
-        dE = T.grad(cost, E)
-        dU = T.grad(cost, U)
-        dW = T.grad(cost, W)
-        db = T.grad(cost, b)
-        dV = T.grad(cost, V)
-        dc = T.grad(cost, c)
+        dE = T.grad(cost_with_regularization, E)
+        dU = T.grad(cost_with_regularization, U)
+        dW = T.grad(cost_with_regularization, W)
+        db = T.grad(cost_with_regularization, b)
+        dV = T.grad(cost_with_regularization, V)
+        dc = T.grad(cost_with_regularization, c)
         
         # Assign functions
         self.predict = theano.function([x], o, allow_input_downcast=True)
@@ -301,6 +311,7 @@ class GRU:
     def calculate_loss(self, X, Y):
         num_words = np.sum([len(y) for y in Y])
         return self.calculate_total_loss(X,Y)/float(num_words)
+
 
 
 #################################################################################################
@@ -399,18 +410,13 @@ def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=
 
 # Save model and give user some feedback on progress
 track_losses = []
-#last_loss = 0.0
 
 def sgd_callback(model, num_examples_seen):
 
   dt = datetime.now()
-  global last_loss              # required to access variable outside of function 
   
   loss = model.calculate_loss(x_train[:10000], y_train[:10000])
   track_losses.append(loss)     # store for graphing later
- # if last_loss >= loss: learning_rate -= 0.001
- # last_loss = loss              # used to compare progress adjust learning rate
-
 
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
@@ -430,6 +436,6 @@ def sgd_callback(model, num_examples_seen):
 for epoch in range(n_epoch):
 
     train_with_sgd(model, x_train, y_train, learning_rate=learning_rate, nepoch=n_epoch, decay=decay, 
-                    callback_every=print_output, callback=sgd_callback)
+                    callback_every=dump_output, callback=sgd_callback)
 
 
