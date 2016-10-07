@@ -19,10 +19,9 @@
 
 # to do ##########################################################################
 # try ReLU instead of sigmoid/tanh
-# add L1 and or L2 regularization to cost
 # stop after x examples randomly trained or some loss threshold met
 # adjust learning rate while training, simple or new self adjusting method?
-
+# try binary_crossentropy as cost function ?
 
 
 import numpy as np
@@ -69,6 +68,11 @@ save_model = 10000
 
 ###############################################################################
 # Alice in Wonderland, Through the Looking Glass
+# Note: this is a small dataset to train a recursive network with
+# might do better with a larger text source
+# Also might do better with a more mainstream text source, lots of made up words and 
+# poems and nonsense in the text
+#
 # Text read in, parsed and tokenized using ReadDataIntoWords.py
 # this should be broken into proper sentences but for testing I'm splitting
 #   it into 8 word strings, no punctuation
@@ -101,15 +105,18 @@ x_t = np.array(x)
 y_t = np.array(y)
 
 
-# randomize data - should probably do this each epoch
-training_range = np.arange(len(y))
-training_range = np.random.permutation(training_range)
 
-x_train = []
-y_train = []
-for i in training_range:
-    x_train.append(x_t[i])
-    y_train.append(y_t[i])
+def randomize_data():
+    training_range = np.arange(len(y))
+    training_range = np.random.permutation(training_range)
+
+    x_train = []
+    y_train = []
+    for i in training_range:
+        x_train.append(x_t[i])
+        y_train.append(y_t[i])
+
+    return x_train, y_train
 
 
 
@@ -215,19 +222,24 @@ class GRU:
             x_e = E[:, x_t]     # input layer
 
             # GRU layer # 1
-            z_t1 = T.nnet.hard_sigmoid(U[0].dot(x_e) + W[0].dot(s_t1_prev) + b[0])
-            r_t1 = T.nnet.hard_sigmoid(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
+            #z_t1 = T.nnet.hard_sigmoid(U[0].dot(x_e) + W[0].dot(s_t1_prev) + b[0])
+            #r_t1 = T.nnet.hard_sigmoid(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
+            z_t1 = T.nnet.relu(U[0].dot(x_e) + W[0].dot(s_t1_prev) + b[0])
+            r_t1 = T.nnet.relu(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
             c_t1 = T.tanh(U[2].dot(x_e) + W[2].dot(s_t1_prev * r_t1) + b[2])
             s_t1 = (T.ones_like(z_t1) - z_t1) * c_t1 + z_t1 * s_t1_prev
             
             # GRU Layer # 2 - each added layer allows more abstraction
-            z_t2 = T.nnet.hard_sigmoid(U[3].dot(s_t1) + W[3].dot(s_t2_prev) + b[3])
-            r_t2 = T.nnet.hard_sigmoid(U[4].dot(s_t1) + W[4].dot(s_t2_prev) + b[4])
+            #z_t2 = T.nnet.hard_sigmoid(U[3].dot(s_t1) + W[3].dot(s_t2_prev) + b[3])
+            #r_t2 = T.nnet.hard_sigmoid(U[4].dot(s_t1) + W[4].dot(s_t2_prev) + b[4])
+            z_t2 = T.nnet.relu(U[3].dot(s_t1) + W[3].dot(s_t2_prev) + b[3])
+            r_t2 = T.nnet.relu(U[4].dot(s_t1) + W[4].dot(s_t2_prev) + b[4])
             c_t2 = T.tanh(U[5].dot(s_t1) + W[5].dot(s_t2_prev * r_t2) + b[5])
             s_t2 = (T.ones_like(z_t2) - z_t2) * c_t2 + z_t2 * s_t2_prev
             
             # Final output calculation
             # Theano's softmax returns a matrix with one row, we only need the row
+            # changing softmax temp (scale) from 1 to lower (0.5) increases network's confidence
             o_t = T.nnet.softmax(V.dot(s_t2) + c)[0]
 
             return [o_t, s_t1, s_t2]
@@ -243,8 +255,8 @@ class GRU:
                           dict(initial=T.zeros(self.n_hidden))])
 
 
-
-
+            
+        
         prediction = T.argmax(o, axis=1)
         o_error = T.sum(T.nnet.categorical_crossentropy(o, y))
         
@@ -357,7 +369,7 @@ def save_model_parameters_theano(model):
         b=model.b.get_value(),
         c=model.c.get_value())
     
-    print ("Saved model parameters to %s." % model_file)
+    print ("Saved model parameters to %s. --------------------------------------------" % model_file)
 
 
 
@@ -420,7 +432,7 @@ def sgd_callback(model, num_examples_seen):
 
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
-  print("Learning Rate: %f" % learning_rate)
+  #print("Learning Rate: %f" % learning_rate)
   
   generate_sentence(model, index_to_word, word_to_index)
 
@@ -434,6 +446,8 @@ def sgd_callback(model, num_examples_seen):
 
 # main training loop
 for epoch in range(n_epoch):
+
+    x_train, y_train = randomize_data()
 
     train_with_sgd(model, x_train, y_train, learning_rate=learning_rate, nepoch=n_epoch, decay=decay, 
                     callback_every=dump_output, callback=sgd_callback)
