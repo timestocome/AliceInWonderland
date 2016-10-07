@@ -13,14 +13,15 @@
 # adapted to read in 'Alice In Wonderland' and 'Through the Looking Glass' and generate text in same style 
 # improved comments and variable names
 # removed sentence start/stop tokens so can more easily adapt to other types of input sequences
-# improved a few things ;)
+# lots of streamlining to make code clearer and faster
 
 
 # to do ##########################################################################
 # try ReLU instead of sigmoid/tanh
 # add L1 and or L2 regularization to cost
 # stop after x examples randomly trained or some loss threshold met
-# randomly running off end of array during gradients, ? where and why?
+# adjust learning rate while training?
+
 
 
 import numpy as np
@@ -50,7 +51,7 @@ not_zero = 1e-6                 # avoid divide by zero errors
 # settings to tweak
 n_hidden = 128               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
-learning_rate = 0.005
+learning_rate = 0.05
 decay = 0.9
 print_output = 10            # print info for user how often during training epochs
 n_layers = 1                 # number of gru hidden layers ( hidden layer height )
@@ -71,22 +72,16 @@ save_model = 10000
 # tokenized data is 
 tokenized_text = np.load('tokenized_document.npy')
 
-print("not randomized ", tokenized_text[10])
-
-# randomize training data
-randomized_tokenized_text = np.random.permutation(tokenized_text)
 
 
-print("randomized", randomized_tokenized_text[10])
+
 
 # break into x, y
-train_x = randomized_tokenized_text[0:-1]
-train_y = randomized_tokenized_text[1:]
+train_x = tokenized_text[0:-1]
+train_y = tokenized_text[1:]
 
 n_train = len(train_x)
 print("Training examples ", n_train)            # 56,206
-
-
 
 
 
@@ -95,11 +90,22 @@ index = 0
 x = []
 y = []
 for i in range(n_train):
-    x.append(train_x[i:i+length_of_text])       # create a sentence
-    y.append(train_y[i+1:i+1+length_of_text])   # shift sentence over one word
+    x.append(train_x[i : i+length_of_text])       # create a sentence
+    y.append(train_y[i: i+length_of_text])   # shift sentence over one word
 
-x_train = np.array(x)
-y_train = np.array(y)
+x_t = np.array(x)
+y_t = np.array(y)
+
+training_range = np.arange(len(y))
+training_range = np.random.permutation(training_range)
+
+
+x_train = []
+y_train = []
+for i in training_range:
+    x_train.append(x_t[i])
+    y_train.append(y_t[i])
+
 
 
 
@@ -236,6 +242,8 @@ class GRU:
         o_error = T.sum(T.nnet.categorical_crossentropy(o, y))
         
         # Total cost (could? should? add regularization here)
+        # L1 = l1 * sum(abs(weights))
+        # L2 = l2 * sum(weights^2)
         cost = o_error
         
         # Gradients
@@ -319,7 +327,6 @@ def generate_sentence(model, index_to_word, word_to_index):
     print("*********************************************************************")
     sys.stdout.flush()
 
-
     return new_sentence
 
 
@@ -370,7 +377,6 @@ def load_model_parameters_theano(path, modelClass=GRU):
 
 model = GRU()
 
-
 def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=n_epoch, decay=decay, callback_every=dump_output, callback=None):
 
     num_examples_seen = 0
@@ -384,24 +390,37 @@ def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=
     
         # Optionally send some output to user
         if num_examples_seen % dump_output == 0:
-            callback(model, num_examples_seen)            
+            callback(model, num_examples_seen)      
+
     
     return model
 
 
+
 # Save model and give user some feedback on progress
+track_losses = []
+#last_loss = 0.0
+
 def sgd_callback(model, num_examples_seen):
 
   dt = datetime.now()
+  global last_loss              # required to access variable outside of function 
   
   loss = model.calculate_loss(x_train[:10000], y_train[:10000])
+  track_losses.append(loss)     # store for graphing later
+ # if last_loss >= loss: learning_rate -= 0.001
+ # last_loss = loss              # used to compare progress adjust learning rate
+
+
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
+  print("Learning Rate: %f" % learning_rate)
+  
   generate_sentence(model, index_to_word, word_to_index)
 
   if num_examples_seen % save_model == 0:
       save_model_parameters_theano(model)
-
+      np.savetxt('losses_by_run', track_losses)
   print("\n")
   sys.stdout.flush()
 
