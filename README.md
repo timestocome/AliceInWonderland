@@ -1,5 +1,6 @@
 # AliceInWonderland
-Exploring RNNs, LSTMs and or GRUs using the Lewis Carroll text
+Exploring RNNs, GRUs using the Lewis Carroll 'Alice in Wonderland' series
+
+Code is in Python 3.5/Theano 0.8
 
 
-Work in progress, only the RNN has been written so far
