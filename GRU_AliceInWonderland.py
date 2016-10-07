@@ -7,15 +7,19 @@
 
 # starter code 
 # http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-2-implementing-a-language-model-rnn-with-python-numpy-and-theano/
-# updated to python 3
-# updated to current Theano version
+#
+# updated to python 3.5 from python 2.x
+# updated to Theano version 0.8.0
+# adapted to read in 'Alice In Wonderland' and 'Through the Looking Glass' and generate text in same style 
+# improved comments and variable names
+# removed sentence start/stop tokens so can more easily adapt to other types of input sequences
 # improved a few things ;)
 
 
 # to do ##########################################################################
 # try ReLU instead of sigmoid/tanh
 # add L1 and or L2 regularization to cost
-
+# add 'Through the Looking Glass' text to training data
 
 import numpy as np
 
@@ -35,7 +39,7 @@ import random
 
 ###############################################################################
 # constants
-unique_words = 3403             # unique words in our dictionary
+unique_words = 4924             # unique words in our dictionary, get this from the output after running ReadDataIntoWords.py
 rng = np.random.RandomState(42) # set up random stream
 not_zero = 1e-6                 # avoid divide by zero errors
 
@@ -53,7 +57,7 @@ n_bptt_truncate = -1        # thresold back propagation through time?
 
 # misc
 number_of_words_to_generate = 12    # max number of words when generating sentences
-
+dump_output = 1000000
 
 ###############################################################################
 # Alice in Wonderland
@@ -65,17 +69,14 @@ number_of_words_to_generate = 12    # max number of words when generating senten
 tokenized_text = np.load('tokenized_document.npy')
 
 # break into x, y
-input = tokenized_text[0:-1]
-target = tokenized_text[1:]
+train_x = tokenized_text[0:-1]
+train_y = tokenized_text[1:]
 
-# break into testing, training
-n_test = len(input) // 10
-n_train = len(input) - n_test
+n_train = len(train_x)
+print("Training examples ", n_train)
 
-train_x = input[0:n_train]
-train_y = input[0:n_train]
-test_x = input[n_train:]
-test_y = input[n_train:]
+
+
 
 
 # break into training vectors 
@@ -89,15 +90,6 @@ for i in range(n_train):
 x_train = np.array(x)
 y_train = np.array(y)
 
-
-tx = []
-ty = []
-for i in range(n_test):
-    tx.append(test_x[i:i+length_of_text])
-    ty.append(test_y[i+1:i+1+length_of_text])
-
-x_test = np.array(tx)
-y_test = np.array(ty)
 
 
 index_dictionary = pickle.load(open('index_dictionary.pkl', "rb"))
@@ -113,7 +105,7 @@ def word_to_index(i):
     if z is None: return -1
     else: return z[0]
 
-
+# vectorized versions of dictionary lookups so I can easily send arrays to functions
 v_index_to_word = np.vectorize(index_to_word)
 v_word_to_index = np.vectorize(word_to_index)
 
@@ -233,7 +225,7 @@ class GRU:
         prediction = T.argmax(o, axis=1)
         o_error = T.sum(T.nnet.categorical_crossentropy(o, y))
         
-        # Total cost (could add regularization here)
+        # Total cost (could? should? add regularization here)
         cost = o_error
         
         # Gradients
@@ -267,7 +259,6 @@ class GRU:
         
         # loop backwards
         self.sgd_step = theano.function(
-           # [x, y, learning_rate, theano.Param(decay, default=0.9)], # Param depricated
             [x, y, learning_rate, theano.In(decay, value=0.9)],
             [], 
             updates=[(E, E - learning_rate * dE / T.sqrt(mE + not_zero)),
@@ -309,11 +300,11 @@ def print_sentence(s, index_to_word):
 
 def generate_sentence(model, index_to_word, word_to_index, min_length=5):
 
-    # We start the sentence with the start token
+    # We start the sentence with a random word from our vocabulary
     start_token = random.randint(0, unique_words)
     new_sentence = [start_token]
     
-    # Repeat until we max reached
+    # Repeat until we max words reached
     while len(new_sentence) < number_of_words_to_generate:
 
         next_word_probs = model.predict(new_sentence)[-1]
@@ -328,9 +319,8 @@ def generate_sentence(model, index_to_word, word_to_index, min_length=5):
 def generate_sentences(model, n, index_to_word, word_to_index):
 
     for i in range(n):
-    
+
         sent = None
-    
         while not sent:
             sent = generate_sentence(model, index_to_word, word_to_index)
     
@@ -384,35 +374,35 @@ def load_model_parameters_theano(path, modelClass=GRU):
 model = GRU()
 
 
-def train_with_sgd(model, X_train, y_train, learning_rate=0.001, nepoch=20, decay=0.9,
-                    callback_every=10000, callback=None):
+def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=n_epoch, decay=decay, callback_every=dump_output, callback=None):
 
     num_examples_seen = 0
 
-    for epoch in range(nepoch):
+    #for epoch in range(nepoch):
+    #    print("========================================================================================")
+    #    print("Epoch #: ", epoch)
     
-        # For each training example...
-        for i in np.random.permutation(len(y_train)):
+       # For each training example...
+    for i in np.random.permutation(n_train - 1):
     
-            # One SGD step
-            model.sgd_step(X_train[i], y_train[i], learning_rate, decay)
-            num_examples_seen += 1
+        # One SGD step
+        model.sgd_step(X_train[i], y_train[i], learning_rate, decay)
+        num_examples_seen += 1
     
-            # Optionally do callback
-            if (callback and callback_every and num_examples_seen % callback_every == 0):
-                callback(model, num_examples_seen)            
+        # Optionally send some output to user
+        if (callback and callback_every and num_examples_seen % callback_every == 0):
+            callback(model, num_examples_seen)            
     
     return model
 
 
-# We do this every few examples to understand what's going on
+# Save model and give user some feedback on progress
 def sgd_callback(model, num_examples_seen):
 
   dt = datetime.now()
   
   loss = model.calculate_loss(x_train[:10000], y_train[:10000])
-  print("\n%s (%d)" % (dt, num_examples_seen))
-  print("--------------------------------------------------")
+  print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
   generate_sentences(model, 1, index_to_word, word_to_index)
   save_model_parameters_theano(model)
@@ -421,7 +411,7 @@ def sgd_callback(model, num_examples_seen):
 
 
 
-
+# main training loop
 for epoch in range(n_epoch):
 
     train_with_sgd(model, x_train, y_train, learning_rate=learning_rate, nepoch=n_epoch, decay=decay, 

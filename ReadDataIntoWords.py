@@ -1,5 +1,8 @@
 #!/python
 
+# use this to strip f*ing unicode from text files
+# $ perl -i.bak -pe 's/[^[:ascii:]]//g' BothBooks.txt 
+
 
 from collections import Counter
 from collections import OrderedDict
@@ -10,7 +13,8 @@ import pickle
 
 
 # open file and read in text
-file = open('AliceInWonderland.txt', 'r')
+#file = open('AliceInWonderland.txt', 'r')
+file = open('BothBooks.txt', encoding='utf-8')
 data = file.read()
 
 
@@ -86,7 +90,7 @@ for w in words:
         tokenized_document.append(token[0])
 
 np.save('tokenized_document.npy', tokenized_document)
-print(tokenized_document)
+#print(tokenized_document)
 
 
 
