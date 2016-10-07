@@ -19,7 +19,9 @@
 # to do ##########################################################################
 # try ReLU instead of sigmoid/tanh
 # add L1 and or L2 regularization to cost
-# add 'Through the Looking Glass' text to training data
+# stop after x examples randomly trained or some loss threshold met
+# randomly running off end of array during gradients, ? where and why?
+
 
 import numpy as np
 
@@ -47,17 +49,18 @@ not_zero = 1e-6                 # avoid divide by zero errors
 
 # settings to tweak
 n_hidden = 128               # hidden layer number of nodes ( hidden layer width )
-n_epoch = 40                  # number of times to loop through full data set
+n_epoch = 40                 # number of times to loop through full data set
 learning_rate = 0.005
 decay = 0.9
 print_output = 10            # print info for user how often during training epochs
 n_layers = 1                 # number of gru hidden layers ( hidden layer height )
 length_of_text = 8           # size of string to feed into RNN
-n_bptt_truncate = -1        # thresold back propagation through time? 
+n_bptt_truncate = -1  # threshold back propagation through time, -1 means no early cut off
 
 # misc
 number_of_words_to_generate = 12    # max number of words when generating sentences
-dump_output = 1000000
+dump_output = 1000
+save_model = 10000
 
 ###############################################################################
 # Alice in Wonderland
@@ -68,12 +71,20 @@ dump_output = 1000000
 # tokenized data is 
 tokenized_text = np.load('tokenized_document.npy')
 
+print("not randomized ", tokenized_text[10])
+
+# randomize training data
+randomized_tokenized_text = np.random.permutation(tokenized_text)
+
+
+print("randomized", randomized_tokenized_text[10])
+
 # break into x, y
-train_x = tokenized_text[0:-1]
-train_y = tokenized_text[1:]
+train_x = randomized_tokenized_text[0:-1]
+train_y = randomized_tokenized_text[1:]
 
 n_train = len(train_x)
-print("Training examples ", n_train)
+print("Training examples ", n_train)            # 56,206
 
 
 
@@ -188,7 +199,6 @@ class GRU:
         # ST = (1-Z) * H + Z*ST
         def forward_propagation(x_t, s_t1_prev, s_t2_prev):
 
-            #** he uses embedding layer, I'm going to stick with one hot vectors
             x_e = E[:, x_t]     # input layer
 
             # GRU layer # 1
@@ -289,16 +299,8 @@ class GRU:
 # create text 
 
 
-def print_sentence(s, index_to_word):
 
-    sentence_str = v_index_to_word(s)
-    print(" ".join(sentence_str))
-    print("*********************************************************************")
-    sys.stdout.flush()
-
-
-
-def generate_sentence(model, index_to_word, word_to_index, min_length=5):
+def generate_sentence(model, index_to_word, word_to_index):
 
     # We start the sentence with a random word from our vocabulary
     start_token = random.randint(0, unique_words)
@@ -312,19 +314,14 @@ def generate_sentence(model, index_to_word, word_to_index, min_length=5):
         sampled_word = np.argmax(samples)
         new_sentence.append(sampled_word)
         
+    sentence_str = v_index_to_word(new_sentence)
+    print(" ".join(sentence_str))
+    print("*********************************************************************")
+    sys.stdout.flush()
+
+
     return new_sentence
 
-
-
-def generate_sentences(model, n, index_to_word, word_to_index):
-
-    for i in range(n):
-
-        sent = None
-        while not sent:
-            sent = generate_sentence(model, index_to_word, word_to_index)
-    
-        print_sentence(sent, index_to_word)
 
 ################################################################################
 # save and reload saved model
@@ -377,20 +374,16 @@ model = GRU()
 def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=n_epoch, decay=decay, callback_every=dump_output, callback=None):
 
     num_examples_seen = 0
-
-    #for epoch in range(nepoch):
-    #    print("========================================================================================")
-    #    print("Epoch #: ", epoch)
     
-       # For each training example...
-    for i in np.random.permutation(n_train - 1):
+    # For each training example...
+    for i in range(0, n_train):
     
         # One SGD step
         model.sgd_step(X_train[i], y_train[i], learning_rate, decay)
         num_examples_seen += 1
     
         # Optionally send some output to user
-        if (callback and callback_every and num_examples_seen % callback_every == 0):
+        if num_examples_seen % dump_output == 0:
             callback(model, num_examples_seen)            
     
     return model
@@ -404,8 +397,11 @@ def sgd_callback(model, num_examples_seen):
   loss = model.calculate_loss(x_train[:10000], y_train[:10000])
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
-  generate_sentences(model, 1, index_to_word, word_to_index)
-  save_model_parameters_theano(model)
+  generate_sentence(model, index_to_word, word_to_index)
+
+  if num_examples_seen % save_model == 0:
+      save_model_parameters_theano(model)
+
   print("\n")
   sys.stdout.flush()
 
