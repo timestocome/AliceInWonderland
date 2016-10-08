@@ -15,13 +15,15 @@
 # added regularization
 # removed sentence start/stop tokens so can more easily adapt to other types of input sequences
 # lots of streamlining to make code clearer and faster
+# used ReLU instead of sigmoid/tanh as activation function (much faster convergence, accuracy seems slightly better)
 
 
 # to do ##########################################################################
-# try ReLU instead of sigmoid/tanh
 # stop after x examples randomly trained or some loss threshold met
 # adjust learning rate while training, simple or new self adjusting method?
 # try binary_crossentropy as cost function ?
+# track loss, only overwrite saved model if loss is less than previous loss
+
 
 
 import numpy as np
@@ -48,17 +50,19 @@ not_zero = 1e-6                 # avoid divide by zero errors
 
 
 # network settings to tweak
-n_hidden = 128               # hidden layer number of nodes ( hidden layer width )
+n_hidden = 256               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
 learning_rate = 0.005        # limits swing in gradients
+
 # lots more weights in this type network, use very small scales
 # set these to zero for no regularization
-l1 = 0.0000                     # L1 regularization scale
-l2 = 0.0001                     # L2 regularization scale
+# doesn't seem to have a large effect on this type of network
+l1 = 0.001                  # L1 regularization scale
+l2 = 0.001                  # L2 regularization scale
 
-decay = 0.9                  # weight for prior information
+decay = 0.8                  # weight for prior information
 length_of_text = 8           # size of string to feed into RNN
-n_bptt_truncate = -1  # threshold back propagation through time, -1 means no early cut off
+n_bptt_truncate = -1         # threshold back propagation through time, -1 means no early cut off
 
 
 # misc settings for outputing info to user and saving data
@@ -98,8 +102,8 @@ index = 0
 x = []
 y = []
 for i in range(n_train):
-    x.append(train_x[i : i+length_of_text])       # create a sentence
-    y.append(train_y[i: i+length_of_text])   # shift sentence over one word
+    x.append(train_x[i : i+length_of_text])         # create a training example
+    y.append(train_y[i: i+length_of_text])          # shift training by one for targets
 
 x_t = np.array(x)
 y_t = np.array(y)
@@ -153,7 +157,6 @@ print("Expected loss for random predictions: %f" %(np.log(unique_words)))
 # W (hidden, hidden)        # hidden to hidden
 
 class GRU:
-
 
     def __init__(self, n_words=unique_words, n_hidden=n_hidden, bptt_truncate=n_bptt_truncate):
 
@@ -222,19 +225,17 @@ class GRU:
             x_e = E[:, x_t]     # input layer
 
             # GRU layer # 1
-            #z_t1 = T.nnet.hard_sigmoid(U[0].dot(x_e) + W[0].dot(s_t1_prev) + b[0])
-            #r_t1 = T.nnet.hard_sigmoid(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
             z_t1 = T.nnet.relu(U[0].dot(x_e) + W[0].dot(s_t1_prev) + b[0])
             r_t1 = T.nnet.relu(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
             c_t1 = T.tanh(U[2].dot(x_e) + W[2].dot(s_t1_prev * r_t1) + b[2])
+            #c_t1 = T.nnet.relu(U[2].dot(x_e) + W[2].dot(s_t1_prev * r_t1) + b[2])
             s_t1 = (T.ones_like(z_t1) - z_t1) * c_t1 + z_t1 * s_t1_prev
             
             # GRU Layer # 2 - each added layer allows more abstraction
-            #z_t2 = T.nnet.hard_sigmoid(U[3].dot(s_t1) + W[3].dot(s_t2_prev) + b[3])
-            #r_t2 = T.nnet.hard_sigmoid(U[4].dot(s_t1) + W[4].dot(s_t2_prev) + b[4])
             z_t2 = T.nnet.relu(U[3].dot(s_t1) + W[3].dot(s_t2_prev) + b[3])
             r_t2 = T.nnet.relu(U[4].dot(s_t1) + W[4].dot(s_t2_prev) + b[4])
             c_t2 = T.tanh(U[5].dot(s_t1) + W[5].dot(s_t2_prev * r_t2) + b[5])
+            #c_t2 = T.nnet.relu(U[5].dot(s_t1) + W[5].dot(s_t2_prev * r_t2) + b[5])
             s_t2 = (T.ones_like(z_t2) - z_t2) * c_t2 + z_t2 * s_t2_prev
             
             # Final output calculation
@@ -279,7 +280,7 @@ class GRU:
         # Assign functions
         self.predict = theano.function([x], o, allow_input_downcast=True)
         self.predict_class = theano.function([x], prediction, allow_input_downcast=True)
-        self.ce_error = theano.function([x, y], cost, allow_input_downcast=True)
+        self.ce_error = theano.function([x, y], cost, allow_input_downcast=True)    # cost to show user
         self.bptt = theano.function([x, y], [dE, dU, dW, db, dV, dc], allow_input_downcast=True)
 
 
@@ -327,9 +328,7 @@ class GRU:
 
 
 #################################################################################################
-# create text 
-
-
+# generate text 
 
 def generate_sentence(model, index_to_word, word_to_index):
 
@@ -415,7 +414,6 @@ def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=
         if num_examples_seen % dump_output == 0:
             callback(model, num_examples_seen)      
 
-    
     return model
 
 
@@ -432,7 +430,6 @@ def sgd_callback(model, num_examples_seen):
 
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
-  #print("Learning Rate: %f" % learning_rate)
   
   generate_sentence(model, index_to_word, word_to_index)
 
