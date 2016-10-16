@@ -165,7 +165,7 @@ class GRU:
         self.n_hidden = n_hidden
         self.bptt_truncate = bptt_truncate
         n_gates = 3 # (Z: update gate, R: reset gate, C: previous hidden output)
-        n_layers = 2
+        n_layers = 1       
 
 
          # Initialize the network parameters
@@ -220,7 +220,7 @@ class GRU:
         # R = activation(X.U + ST.W + b)
         # H = activation(X.U + (ST*R).W + b)
         # ST = (1-Z) * H + Z*ST
-        def forward_propagation(x_t, s_t1_prev, s_t2_prev):
+        def forward_propagation(x_t, s_t1_prev):
 
             x_e = E[:, x_t]     # input layer
 
@@ -228,32 +228,24 @@ class GRU:
             z_t1 = T.nnet.relu(U[0].dot(x_e) + W[0].dot(s_t1_prev) + b[0])
             r_t1 = T.nnet.relu(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
             c_t1 = T.tanh(U[2].dot(x_e) + W[2].dot(s_t1_prev * r_t1) + b[2])
-            #c_t1 = T.nnet.relu(U[2].dot(x_e) + W[2].dot(s_t1_prev * r_t1) + b[2])
             s_t1 = (T.ones_like(z_t1) - z_t1) * c_t1 + z_t1 * s_t1_prev
             
-            # GRU Layer # 2 - each added layer allows more abstraction
-            z_t2 = T.nnet.relu(U[3].dot(s_t1) + W[3].dot(s_t2_prev) + b[3])
-            r_t2 = T.nnet.relu(U[4].dot(s_t1) + W[4].dot(s_t2_prev) + b[4])
-            c_t2 = T.tanh(U[5].dot(s_t1) + W[5].dot(s_t2_prev * r_t2) + b[5])
-            #c_t2 = T.nnet.relu(U[5].dot(s_t1) + W[5].dot(s_t2_prev * r_t2) + b[5])
-            s_t2 = (T.ones_like(z_t2) - z_t2) * c_t2 + z_t2 * s_t2_prev
+           
             
             # Final output calculation
             # Theano's softmax returns a matrix with one row, we only need the row
             # changing softmax temp (scale) from 1 to lower (0.5) increases network's confidence
-            o_t = T.nnet.softmax(V.dot(s_t2) + c)[0]
+            o_t = T.nnet.softmax(V.dot(s_t1) + c)[0]
 
-            return [o_t, s_t1, s_t2]
+            return [o_t, s_t1]
 
         
         # recurse through GRU layers
-        [o, s1, s2], updates = theano.scan(
+        [o, s1], updates = theano.scan(
             forward_propagation,
             sequences = x,
             truncate_gradient = self.bptt_truncate,
-            outputs_info = [None, 
-                          dict(initial=T.zeros(self.n_hidden)),
-                          dict(initial=T.zeros(self.n_hidden))])
+            outputs_info = [None, dict(initial=T.zeros(self.n_hidden))])
 
 
             
