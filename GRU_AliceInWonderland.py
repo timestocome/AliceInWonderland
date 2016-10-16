@@ -52,13 +52,13 @@ not_zero = 1e-6                 # avoid divide by zero errors
 # network settings to tweak
 n_hidden = 256               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
-learning_rate = 5e-5        # limits swing in gradients
+learning_rate = 8e-5        # limits swing in gradients
 
 # lots more weights in this type network, use very small scales
 # set these to zero for no regularization
 # doesn't seem to have a large effect on this type of network
-l1 = 1e-6                  # L1 regularization scale
-l2 = 1e-6                  # L2 regularization scale
+#l1 = 1e-6                  # L1 regularization scale
+#l2 = 1e-6                  # L2 regularization scale
 
 decay = 0.99                  # weight for prior information
 length_of_text = 12           # size of string to feed into RNN
@@ -229,9 +229,7 @@ class GRU:
             r_t1 = T.nnet.relu(U[1].dot(x_e) + W[1].dot(s_t1_prev) + b[1])
             c_t1 = T.tanh(U[2].dot(x_e) + W[2].dot(s_t1_prev * r_t1) + b[2])
             s_t1 = (T.ones_like(z_t1) - z_t1) * c_t1 + z_t1 * s_t1_prev
-            
-           
-            
+             
             # Final output calculation
             # Theano's softmax returns a matrix with one row, we only need the row
             # changing softmax temp (scale) from 1 to lower (0.5) increases network's confidence
@@ -253,21 +251,24 @@ class GRU:
         prediction = T.argmax(o, axis=1)
         o_error = T.sum(T.nnet.categorical_crossentropy(o, y))
         
-        # Total cost (could? should? add regularization here)
+        # Total cost 
+        cost = o_error 
+
+        # cost with regularization
         # L1 = l1 * sum(abs(weights)) --- drives some weights to zero, doesn't always work
         # L2 = l2 * sum(weights^2) --- rotationally invariant
-        L2 = l2 * (V **2).sum() + (W **2).sum() + (U **2).sum()
-        L1 = l1 * (np.abs(V)).sum() + (np.abs(W)).sum() + (np.abs(U)).sum()
-        cost = o_error 
-        cost_with_regularization = o_error + L1 + L2
+        #L2 = l2 * (V **2).sum() + (W **2).sum() + (U **2).sum()
+        #L1 = l1 * (np.abs(V)).sum() + (np.abs(W)).sum() + (np.abs(U)).sum()
+        #cost_with_regularization = o_error + L1 + L2
+
 
         # Gradients
-        dE = T.grad(cost_with_regularization, E)
-        dU = T.grad(cost_with_regularization, U)
-        dW = T.grad(cost_with_regularization, W)
-        db = T.grad(cost_with_regularization, b)
-        dV = T.grad(cost_with_regularization, V)
-        dc = T.grad(cost_with_regularization, c)
+        dE = T.grad(cost, E)
+        dU = T.grad(cost, U)
+        dW = T.grad(cost, W)
+        db = T.grad(cost, b)
+        dV = T.grad(cost, V)
+        dc = T.grad(cost, c)
         
         # Assign functions
         self.predict = theano.function([x], o, allow_input_downcast=True)
@@ -366,6 +367,7 @@ def save_model_parameters_theano(model):
 
 def load_model_parameters_theano(path, modelClass=GRU):
 
+    print("loading saved model")
     npzfile = np.load(path)
 
     E, U, W, V, b, c = npzfile["E"], npzfile["U"], npzfile["W"], npzfile["V"], npzfile["b"], npzfile["c"]
