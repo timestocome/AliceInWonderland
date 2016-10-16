@@ -52,16 +52,16 @@ not_zero = 1e-6                 # avoid divide by zero errors
 # network settings to tweak
 n_hidden = 256               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
-learning_rate = 0.005        # limits swing in gradients
+learning_rate = 5e-5        # limits swing in gradients
 
 # lots more weights in this type network, use very small scales
 # set these to zero for no regularization
 # doesn't seem to have a large effect on this type of network
-l1 = 0.001                  # L1 regularization scale
-l2 = 0.001                  # L2 regularization scale
+l1 = 1e-6                  # L1 regularization scale
+l2 = 1e-6                  # L2 regularization scale
 
-decay = 0.8                  # weight for prior information
-length_of_text = 8           # size of string to feed into RNN
+decay = 0.99                  # weight for prior information
+length_of_text = 12           # size of string to feed into RNN
 n_bptt_truncate = -1         # threshold back propagation through time, -1 means no early cut off
 
 
@@ -425,7 +425,7 @@ def sgd_callback(model, num_examples_seen):
 
   dt = datetime.now()
   
-  loss = model.calculate_loss(x_train[:10000], y_train[:10000])
+  loss = model.calculate_loss(x_train[:1000], y_train[:1000])
   track_losses.append(loss)     # store for graphing later
 
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
