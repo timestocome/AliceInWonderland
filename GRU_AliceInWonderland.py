@@ -12,16 +12,17 @@
 # updated to Theano version 0.8.0
 # adapted to read in 'Alice In Wonderland' and 'Through the Looking Glass' and generate text in same style 
 # improved comments and variable names
-# added regularization
+# added regularization, then removed it. Seems to hurt more than help here
 # removed sentence start/stop tokens so can more easily adapt to other types of input sequences
 # lots of streamlining to make code clearer and faster
 # used ReLU instead of sigmoid/tanh as activation function (much faster convergence, accuracy seems slightly better)
+# removed one gru layer, the extra layer didn't help 
+
 
 
 # to do ##########################################################################
 # stop after x examples randomly trained or some loss threshold met
 # adjust learning rate while training, simple or new self adjusting method?
-# try binary_crossentropy as cost function ?
 # track loss, only overwrite saved model if loss is less than previous loss
 
 
@@ -52,13 +53,12 @@ not_zero = 1e-6                 # avoid divide by zero errors
 # network settings to tweak
 n_hidden = 256               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
-learning_rate = 8e-5        # limits swing in gradients
 
-# lots more weights in this type network, use very small scales
-# set these to zero for no regularization
-# doesn't seem to have a large effect on this type of network
-#l1 = 1e-6                  # L1 regularization scale
-#l2 = 1e-6                  # L2 regularization scale
+learning_rate =4e-4        # limits swing in gradients
+adjust_learning_rate = 1e-5 # decrease learning rate in regular steps
+frequency_adjust_learning_rate = 1000  # how often to decrease learning rate
+
+
 
 decay = 0.99                  # weight for prior information
 length_of_text = 12           # size of string to feed into RNN
@@ -237,7 +237,11 @@ class GRU:
 
             return [o_t, s_t1]
 
-        
+
+
+
+
+
         # recurse through GRU layers
         [o, s1], updates = theano.scan(
             forward_propagation,
@@ -254,14 +258,7 @@ class GRU:
         # Total cost 
         cost = o_error 
 
-        # cost with regularization
-        # L1 = l1 * sum(abs(weights)) --- drives some weights to zero, doesn't always work
-        # L2 = l2 * sum(weights^2) --- rotationally invariant
-        #L2 = l2 * (V **2).sum() + (W **2).sum() + (U **2).sum()
-        #L1 = l1 * (np.abs(V)).sum() + (np.abs(W)).sum() + (np.abs(U)).sum()
-        #cost_with_regularization = o_error + L1 + L2
-
-
+       
         # Gradients
         dE = T.grad(cost, E)
         dU = T.grad(cost, U)
@@ -280,6 +277,9 @@ class GRU:
         # backwards propagation
         learning_rate = T.scalar('learning_rate')
         decay = T.scalar('decay')
+
+
+      
         
         # rmsprop cache updates
         # rms frequent features get small changes, rare ones get large changes
@@ -318,6 +318,7 @@ class GRU:
         num_words = np.sum([len(y) for y in Y])
         return self.calculate_total_loss(X,Y)/float(num_words)
 
+   
 
 
 #################################################################################################
@@ -404,6 +405,11 @@ def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=
         model.sgd_step(X_train[i], y_train[i], learning_rate, decay)
         num_examples_seen += 1
     
+        # dumb, steady learning rate adjustment
+        if num_examples_seen % frequency_adjust_learning_rate == 0:
+            learning_rate -= adjust_learning_rate       # steadily decrease learning rate
+            print ("Current learning rate %f" % learning_rate)
+
         # Optionally send some output to user
         if num_examples_seen % dump_output == 0:
             callback(model, num_examples_seen)      
@@ -424,6 +430,7 @@ def sgd_callback(model, num_examples_seen):
 
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
+  print("Accuracy: %f" % (1. - loss / np.log(unique_words))   )
   
   generate_sentence(model, index_to_word, word_to_index)
 

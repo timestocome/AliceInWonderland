@@ -1,0 +1,114 @@
+Training examples  56206
+Expected loss for random predictions: 8.501876
+2016-10-16 16:24:26.329390 (training examples processed: 1000)
+Loss: 6.636998
+Accuracy: 0.219349
+succeed dash: myself beamish afraid' remedies have she and fireworks things eight
+*********************************************************************
+2016-10-16 16:27:31.449827 (training examples processed: 2000)
+Loss: 6.416043
+Accuracy: 0.245338
+though some treasures 'and it said happen thump and the a said
+*********************************************************************
+2016-10-16 16:30:35.603017 (training examples processed: 3000)
+Loss: 6.355676
+Accuracy: 0.252438
+feed that pocket door you i of the which just and the
+*********************************************************************
+Current learning rate 0.000095
+2016-10-16 16:33:40.162167 (training examples processed: 4000)
+Loss: 6.279120
+Accuracy: 0.261443
+finished tell please: green: him very sighed say gyroscope do to was
+*********************************************************************
+2016-10-16 16:36:45.037347 (training examples processed: 5000)
+Loss: 6.211730
+Accuracy: 0.269369
+speech let why hands would rabbit-hole things said was what time too
+*********************************************************************
+2016-10-16 16:39:50.027324 (training examples processed: 6000)
+Loss: 6.152777
+Accuracy: 0.276304
+croquet thistle entirely games they had caterpillar tree the four brook the
+*********************************************************************
+2016-10-16 16:42:52.057481 (training examples processed: 7000)
+Loss: 6.115009
+Accuracy: 0.280746
+'fourteenth it 'off it been make for went to staring the observe
+*********************************************************************
+Current learning rate 0.000090
+2016-10-16 16:45:51.429116 (training examples processed: 8000)
+Loss: 6.056870
+Accuracy: 0.287584
+addition she had number a little soles was alice red manage man
+*********************************************************************
+2016-10-16 16:48:51.208963 (training examples processed: 9000)
+Loss: 6.011766
+Accuracy: 0.292889
+arrow hug puzzling but it march' they feet there had see you
+*********************************************************************
+2016-10-16 16:52:05.516355 (training examples processed: 10000)
+Loss: 5.969504
+Accuracy: 0.297860
+punished as before to thee we morning and very being other white
+*********************************************************************
+Saved model parameters to saved_model. --------------------------------------------
+2016-10-16 16:55:21.045367 (training examples processed: 11000)
+Loss: 5.930558
+Accuracy: 0.302441
+bolster there's asked with alice because i had not gave when would
+*********************************************************************
+Current learning rate 0.000085
+2016-10-16 16:58:20.219076 (training examples processed: 12000)
+Loss: 5.897511
+Accuracy: 0.306328
+running you'll and its 'until and great jabberwock branch her at the
+*********************************************************************
+2016-10-16 17:01:25.062519 (training examples processed: 13000)
+Loss: 5.870673
+Accuracy: 0.309485
+directions stick round a cheer in the remember out of her of'
+*********************************************************************
+2016-10-16 17:04:30.283284 (training examples processed: 14000)
+Loss: 5.839152
+Accuracy: 0.313193
+officer done: the 'i went well but is another thrown of toilet
+*********************************************************************
+2016-10-16 17:07:36.408785 (training examples processed: 15000)
+Loss: 5.809010
+Accuracy: 0.316738
+sal-volatile see amazing with still against it would can't william's to managing
+*********************************************************************
+Current learning rate 0.000080
+2016-10-16 17:10:41.643852 (training examples processed: 16000)
+Loss: 5.784754
+Accuracy: 0.319591
+presents got one alices vanishing it'll arrange so 'tell to carpenter 'i
+*********************************************************************
+2016-10-16 17:13:45.316126 (training examples processed: 17000)
+Loss: 5.759602
+Accuracy: 0.322549
+vague white carrier' out to its yhtils no be at the other
+*********************************************************************
+2016-10-16 17:16:48.119330 (training examples processed: 18000)
+Loss: 5.739043
+Accuracy: 0.324968
+loudly into the hatter the door is too setting hurt not tremendously
+*********************************************************************
+2016-10-16 17:19:51.986745 (training examples processed: 19000)
+Loss: 5.715392
+Accuracy: 0.327749
+appearing alice said it a could said in last ships its easily
+*********************************************************************
+Current learning rate 0.000075
+2016-10-16 17:22:54.879051 (training examples processed: 20000)
+Loss: 5.688281
+Accuracy: 0.330938
+presents well with get english for how with one rather bite' then
+*********************************************************************
+Saved model parameters to saved_model. --------------------------------------------
+2016-10-16 17:25:57.837976 (training examples processed: 21000)
+Loss: 5.672397
+Accuracy: 0.332806
+every begins and tweedledee dormouse dear a come way and we turned
+*********************************************************************
