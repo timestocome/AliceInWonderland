@@ -54,8 +54,8 @@ not_zero = 1e-6                 # avoid divide by zero errors
 n_hidden = 256               # hidden layer number of nodes ( hidden layer width )
 n_epoch = 40                 # number of times to loop through full data set
 
-learning_rate =4e-4        # limits swing in gradients
-adjust_learning_rate = 1e-5 # decrease learning rate in regular steps
+learning_rate =1e-4        # limits swing in gradients
+adjust_learning_rate = 1e-6 # decrease learning rate in regular steps
 frequency_adjust_learning_rate = 1000  # how often to decrease learning rate
 
 
@@ -309,6 +309,14 @@ class GRU:
                      (self.mc, mc)
                     ], allow_input_downcast=True)
         
+
+    def sum_weights(self):
+        v = (np.abs(self.V)).sum() 
+        w = (np.abs(self.W)).sum() 
+        e = (np.abs(self.E)).sum() 
+        u = (np.abs(self.U)).sum()
+        return v.eval(), w.eval(), e.eval(), u.eval()
+
         
     def calculate_total_loss(self, X, Y):
         return np.sum([self.ce_error(x,y) for x,y in zip(X,Y)])
@@ -431,6 +439,10 @@ def sgd_callback(model, num_examples_seen):
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Loss: %f" % loss)
   print("Accuracy: %f" % (1. - loss / np.log(unique_words))   )
+  
+
+  v, w, e, u = model.sum_weights()
+  print("V %f, W %f, E %f, U %f" % (v, w, e, u))
   
   generate_sentence(model, index_to_word, word_to_index)
 
