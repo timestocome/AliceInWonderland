@@ -1,114 +1,497 @@
 Training examples  56206
 Expected loss for random predictions: 8.501876
-2016-10-16 16:24:26.329390 (training examples processed: 1000)
-Loss: 6.636998
-Accuracy: 0.219349
-succeed dash: myself beamish afraid' remedies have she and fireworks things eight
+2016-11-05 22:03:57.294345 (training examples processed: 1000)
+Cross Entropy Error: 65.89
+Net: V 58, W -0, E 11, U 9
+Abs: V 39536, W 6150, E 9001, U 6200
+Average weight per layer: V, W, E, U 0.0313640649207 0.0312802712651 0.00714058068985 0.0315329237102
+Sum: mV 6.0588, mW 0.0225, mE 6.1483, mU 0.0894, mb 6.4382, mc 8.9949
+less nasty suggested: another: try cackled remarks' sentence twenty-four inkstand directly now'
 *********************************************************************
-2016-10-16 16:27:31.449827 (training examples processed: 2000)
-Loss: 6.416043
-Accuracy: 0.245338
-though some treasures 'and it said happen thump and the a said
+2016-11-05 22:06:19.672561 (training examples processed: 2000)
+Cross Entropy Error: 54.97
+Net: V 883, W -16, E 15, U 15
+Abs: V 45954, W 6383, E 9029, U 6441
+Average weight per layer: V, W, E, U 0.036455734853 0.0324672602597 0.00716281981348 0.0327619199455
+Sum: mV 509.5155, mW 461.1570, mE 57.9184, mU 0.3997, mb 17.1562, mc 7.7364
+maids gardens said a ballad diamonds dear so staring sneezed what remain
 *********************************************************************
-2016-10-16 16:30:35.603017 (training examples processed: 3000)
-Loss: 6.355676
-Accuracy: 0.252438
-feed that pocket door you i of the which just and the
+2016-11-05 22:08:41.256509 (training examples processed: 3000)
+Cross Entropy Error: 53.57
+Net: V 1650, W -19, E 15, U 17
+Abs: V 64355, W 6473, E 9046, U 6658
+Average weight per layer: V, W, E, U 0.0510533010751 0.0329233131017 0.00717620887138 0.0338643385026
+Sum: mV 402.6559, mW 241.7653, mE 58.8042, mU 0.3629, mb 11.3727, mc 8.0016
+prattled maybe and saucepans suddenly: her of as heap said a fellows
+*********************************************************************
+2016-11-05 22:11:02.348790 (training examples processed: 4000)
+Cross Entropy Error: 52.91
+Net: V 2628, W -19, E 15, U 20
+Abs: V 81456, W 6500, E 9068, U 6836
+Average weight per layer: V, W, E, U 0.0646197328982 0.0330583455673 0.00719406373717 0.0347705216905
+Sum: mV 270.1934, mW 111.7213, mE 69.5217, mU 0.3374, mb 8.3304, mc 7.5920
+cooing calculation 'on this and but as on alice viii languid crying
+*********************************************************************
+Current learning rate 0.000099
+2016-11-05 22:13:25.012610 (training examples processed: 5000)
+Cross Entropy Error: 52.44
+Net: V 3771, W -22, E 16, U 22
+Abs: V 94035, W 6546, E 9094, U 6952
+Average weight per layer: V, W, E, U 0.0745986692584 0.0332962653394 0.00721405842645 0.0353575505772
+Sum: mV 228.1421, mW 85.3457, mE 83.9471, mU 0.2694, mb 8.1343, mc 7.9428
+managed usual she was for cold a ridges down jack-in-the-box penny parts
+*********************************************************************
+2016-11-05 22:15:46.257236 (training examples processed: 6000)
+Cross Entropy Error: 52.14
+Net: V 5040, W -25, E 17, U 25
+Abs: V 102678, W 6581, E 9122, U 7009
+Average weight per layer: V, W, E, U 0.0814550880172 0.0334731867093 0.00723632643596 0.0356492854037
+Sum: mV 206.3134, mW 76.4636, mE 94.7827, mU 0.4716, mb 6.6698, mc 7.7135
+'fury with again on with slipped of it again sands and occurred
+*********************************************************************
+2016-11-05 22:18:08.153573 (training examples processed: 7000)
+Cross Entropy Error: 51.87
+Net: V 6251, W -32, E 18, U 27
+Abs: V 109055, W 6612, E 9153, U 7079
+Average weight per layer: V, W, E, U 0.0865139917418 0.0336297623812 0.00726133989326 0.0360057308
+Sum: mV 230.8580, mW 100.4672, mE 91.7382, mU 0.4447, mb 10.3340, mc 9.2979
+'a not miserable that the white her wool explain in low-spirited and
+*********************************************************************
+2016-11-05 22:20:31.529913 (training examples processed: 8000)
+Cross Entropy Error: 51.60
+Net: V 6652, W -34, E 18, U 32
+Abs: V 113366, W 6647, E 9189, U 7171
+Average weight per layer: V, W, E, U 0.0899339751403 0.033808129144 0.007289887754 0.0364715248198
+Sum: mV 211.3559, mW 79.5815, mE 71.5822, mU 0.6015, mb 6.0435, mc 7.8832
+sticking o'clock the marking to then the dishcover only eldest again the
+*********************************************************************
+2016-11-05 22:22:55.182978 (training examples processed: 9000)
+Cross Entropy Error: 51.47
+Net: V 6718, W -35, E 17, U 35
+Abs: V 116857, W 6675, E 9232, U 7298
+Average weight per layer: V, W, E, U 0.0927034136373 0.0339506467874 0.00732364555244 0.0371210411253
+Sum: mV 237.5122, mW 105.6811, mE 62.4278, mU 0.7368, mb 6.6914, mc 7.8776
+fresh dormouse: to figures' was one of buy of the worry legs
+*********************************************************************
+Current learning rate 0.000098
+2016-11-05 22:25:19.903900 (training examples processed: 10000)
+Cross Entropy Error: 51.41
+Net: V 6610, W -35, E 16, U 35
+Abs: V 120177, W 6700, E 9275, U 7436
+Average weight per layer: V, W, E, U 0.0953370223538 0.034079179023 0.00735810855175 0.0378235916693
+Sum: mV 299.9703, mW 145.6616, mE 102.3900, mU 0.9636, mb 14.4993, mc 12.9132
+opinion let's the art sal-volatile shout that to merely on for very
+*********************************************************************
+Saved model parameters to saved_model. --------------------------------------------
+2016-11-05 22:27:45.748461 (training examples processed: 11000)
+Cross Entropy Error: 51.32
+Net: V 6471, W -35, E 15, U 35
+Abs: V 123019, W 6712, E 9317, U 7572
+Average weight per layer: V, W, E, U 0.0975923226007 0.0341408189064 0.00739100747039 0.0385107486386
+Sum: mV 269.8528, mW 167.8248, mE 63.0668, mU 1.2960, mb 7.9150, mc 7.7749
+'somebody bristling the we've lighted quicker which and a market-place into of
+*********************************************************************
+2016-11-05 22:30:12.678068 (training examples processed: 12000)
+Cross Entropy Error: 51.19
+Net: V 5989, W -34, E 14, U 36
+Abs: V 125362, W 6734, E 9356, U 7692
+Average weight per layer: V, W, E, U 0.0994510612515 0.0342534232885 0.00742202123841 0.0391218614297
+Sum: mV 280.9931, mW 245.7497, mE 73.9466, mU 1.6155, mb 12.0867, mc 8.3434
+till was throne said so the well said wilderness and hearts quarrel
+*********************************************************************
+2016-11-05 22:32:39.620494 (training examples processed: 13000)
+Cross Entropy Error: 51.13
+Net: V 5576, W -36, E 12, U 36
+Abs: V 127579, W 6747, E 9399, U 7839
+Average weight per layer: V, W, E, U 0.101209091928 0.034315341987 0.00745608008789 0.0398706139285
+Sum: mV 256.6939, mW 207.6096, mE 65.4614, mU 1.5334, mb 11.7191, mc 7.9585
+distinguish this only glorious these at the 'boots hair is whistle a
+*********************************************************************
+2016-11-05 22:35:08.157997 (training examples processed: 14000)
+Cross Entropy Error: 51.00
+Net: V 5113, W -34, E 12, U 36
+Abs: V 129519, W 6765, E 9437, U 7973
+Average weight per layer: V, W, E, U 0.102748732533 0.0344099860623 0.00748625655661 0.0405539882267
+Sum: mV 273.3385, mW 469.2353, mE 87.4709, mU 3.0799, mb 17.9561, mc 7.9789
+towards bee-hive its sprawling all with house water tipped alice they and
+*********************************************************************
+Current learning rate 0.000097
+2016-11-05 22:37:35.984238 (training examples processed: 15000)
+Cross Entropy Error: 51.03
+Net: V 4528, W -35, E 11, U 37
+Abs: V 131590, W 6777, E 9475, U 8108
+Average weight per layer: V, W, E, U 0.1043914627 0.0344694296339 0.00751653522426 0.0412374452023
+Sum: mV 326.0778, mW 443.3029, mE 96.0661, mU 3.7200, mb 22.0427, mc 7.8022
+'pepper brillig out like the fury the shes rapidly: alice they some
+*********************************************************************
+2016-11-05 22:40:04.553897 (training examples processed: 16000)
+Cross Entropy Error: 50.78
+Net: V 3860, W -35, E 10, U 37
+Abs: V 133837, W 6792, E 9515, U 8248
+Average weight per layer: V, W, E, U 0.106173967588 0.0345472236743 0.00754836398061 0.0419533335568
+Sum: mV 297.1545, mW 300.3952, mE 85.7076, mU 2.3954, mb 12.5258, mc 7.9016
+flustered mention floating joke hedges for flashed set she form said the
+*********************************************************************
+2016-11-05 22:42:32.960931 (training examples processed: 17000)
+Cross Entropy Error: 50.66
+Net: V 3402, W -36, E 10, U 37
+Abs: V 136114, W 6811, E 9553, U 8370
+Average weight per layer: V, W, E, U 0.107980644658 0.0346448397988 0.00757816079191 0.042570939499
+Sum: mV 322.4792, mW 371.4120, mE 80.8798, mU 2.7251, mb 16.0582, mc 7.7976
+needn't to the soldier his i'll could clean she to thought it
+*********************************************************************
+2016-11-05 22:45:01.441395 (training examples processed: 18000)
+Cross Entropy Error: 50.63
+Net: V 3012, W -35, E 10, U 36
+Abs: V 138476, W 6822, E 9592, U 8509
+Average weight per layer: V, W, E, U 0.109854283427 0.0346989426328 0.00760958999984 0.043279418347
+Sum: mV 363.9383, mW 559.1601, mE 107.6844, mU 5.1801, mb 18.8589, mc 7.7250
+earlier she passage much a teeth two a shedding the queen more
+*********************************************************************
+2016-11-05 22:47:28.354693 (training examples processed: 19000)
+Cross Entropy Error: 50.45
+Net: V 2638, W -37, E 9, U 35
+Abs: V 141102, W 6838, E 9629, U 8630
+Average weight per layer: V, W, E, U 0.111937475534 0.0347815550065 0.00763888593683 0.04389229947
+Sum: mV 421.8298, mW 677.4788, mE 121.0114, mU 6.8302, mb 25.4096, mc 7.7194
+tucked riper courage this one like all the their place purpose 'curiouser
+*********************************************************************
+Current learning rate 0.000096
+2016-11-05 22:49:59.495576 (training examples processed: 20000)
+Cross Entropy Error: 50.41
+Net: V 2619, W -36, E 8, U 35
+Abs: V 143896, W 6855, E 9666, U 8745
+Average weight per layer: V, W, E, U 0.114153879531 0.0348679971956 0.00766842340291 0.0444804373982
+Sum: mV 406.0463, mW 562.9142, mE 117.7312, mU 5.8032, mb 20.1294, mc 8.1187
+bird' there very bleat been with i pudding deepest how it was
+*********************************************************************
+Saved model parameters to saved_model. --------------------------------------------
+2016-11-05 22:52:29.065828 (training examples processed: 21000)
+Cross Entropy Error: 50.40
+Net: V 2819, W -35, E 7, U 34
+Abs: V 146626, W 6870, E 9705, U 8872
+Average weight per layer: V, W, E, U 0.11631963535 0.0349416911717 0.00769943352097 0.0451274420112
+Sum: mV 352.7852, mW 417.6007, mE 124.3414, mU 6.6081, mb 19.5365, mc 7.8660
+beg to the shutting the great practice finger dismay 'i grander prisoner's
+*********************************************************************
+2016-11-05 22:54:58.191788 (training examples processed: 22000)
+Cross Entropy Error: 50.27
+Net: V 2899, W -36, E 6, U 32
+Abs: V 149882, W 6880, E 9741, U 8991
+Average weight per layer: V, W, E, U 0.118902980501 0.0349921402404 0.00772766905008 0.0457299628928
+Sum: mV 400.5589, mW 471.3111, mE 124.2686, mU 7.3495, mb 16.8774, mc 7.6837
+buttercup she tease considering the myself queen an inwards an pudding as
+*********************************************************************
+2016-11-05 22:57:28.358638 (training examples processed: 23000)
+Cross Entropy Error: 50.23
+Net: V 2681, W -35, E 4, U 34
+Abs: V 153590, W 6890, E 9779, U 9102
+Average weight per layer: V, W, E, U 0.121844304553 0.0350460609674 0.0077580912274 0.0462959302943
+Sum: mV 399.2811, mW 9364.7216, mE 285.1377, mU 128.4831, mb 135.7105, mc 9.4232
+trays a plan pay for darling the upwards instead' arms last great
+*********************************************************************
+2016-11-05 22:59:59.098798 (training examples processed: 24000)
+Cross Entropy Error: 50.12
+Net: V 2357, W -35, E 3, U 33
+Abs: V 157509, W 6902, E 9818, U 9222
+Average weight per layer: V, W, E, U 0.124953405606 0.0351033900515 0.00778890537193 0.0469067454456
+Sum: mV 369.7693, mW 461.0010, mE 123.0984, mU 4.9045, mb 21.3516, mc 8.2756
+flashed to be lived it ''tis into the demurely that limed her
 *********************************************************************
 Current learning rate 0.000095
-2016-10-16 16:33:40.162167 (training examples processed: 4000)
-Loss: 6.279120
-Accuracy: 0.261443
-finished tell please: green: him very sighed say gyroscope do to was
+2016-11-05 23:02:29.045319 (training examples processed: 25000)
+Cross Entropy Error: 50.10
+Net: V 2138, W -35, E 2, U 32
+Abs: V 161423, W 6920, E 9855, U 9330
+Average weight per layer: V, W, E, U 0.128057938025 0.0351977724393 0.00781813994058 0.0474554591711
+Sum: mV 387.6843, mW 456.4876, mE 112.2076, mU 6.2991, mb 16.7200, mc 8.0903
+scream put of stopped because and hundred was fallen to where flower-pot
 *********************************************************************
-2016-10-16 16:36:45.037347 (training examples processed: 5000)
-Loss: 6.211730
-Accuracy: 0.269369
-speech let why hands would rabbit-hole things said was what time too
+2016-11-05 23:04:57.762885 (training examples processed: 26000)
+Cross Entropy Error: 50.01
+Net: V 1819, W -37, E 1, U 33
+Abs: V 165212, W 6941, E 9892, U 9434
+Average weight per layer: V, W, E, U 0.131064375229 0.0353045668595 0.00784706812491 0.0479836756049
+Sum: mV 380.9627, mW 524.6955, mE 128.1675, mU 5.9518, mb 17.0969, mc 7.6406
+rustling important said atom involved to gryphon to cheerfully would invited' the
 *********************************************************************
-2016-10-16 16:39:50.027324 (training examples processed: 6000)
-Loss: 6.152777
-Accuracy: 0.276304
-croquet thistle entirely games they had caterpillar tree the four brook the
+2016-11-05 23:07:23.239463 (training examples processed: 27000)
+Cross Entropy Error: 49.91
+Net: V 1305, W -37, E 1, U 32
+Abs: V 169321, W 6955, E 9924, U 9528
+Average weight per layer: V, W, E, U 0.134323765355 0.0353734355523 0.00787267897437 0.0484608210162
+Sum: mV 427.1101, mW 575.7569, mE 122.8227, mU 7.6797, mb 19.0380, mc 7.8153
+taste was hatter some belonging and pour frog-footman easily at say she
 *********************************************************************
-2016-10-16 16:42:52.057481 (training examples processed: 7000)
-Loss: 6.115009
-Accuracy: 0.280746
-'fourteenth it 'off it been make for went to staring the observe
+2016-11-05 23:09:51.484780 (training examples processed: 28000)
+Cross Entropy Error: 49.95
+Net: V 588, W -36, E 1, U 33
+Abs: V 173285, W 6966, E 9960, U 9632
+Average weight per layer: V, W, E, U 0.137468415694 0.0354318134672 0.0079011949806 0.0489908295502
+Sum: mV 434.5182, mW 602.9049, mE 128.0713, mU 7.5000, mb 21.5649, mc 7.7979
+eldest duck knees wood it leaning were quite cheaper if glass teetotum
+*********************************************************************
+2016-11-05 23:12:19.192136 (training examples processed: 29000)
+Cross Entropy Error: 49.82
+Net: V -184, W -37, E 1, U 32
+Abs: V 176750, W 6979, E 9992, U 9720
+Average weight per layer: V, W, E, U 0.14021745387 0.0354991187856 0.00792643400779 0.0494387564429
+Sum: mV 429.6320, mW 636.3300, mE 139.5980, mU 8.7138, mb 21.9185, mc 7.7315
+meanwhile do she be-e-e-etter blazing of and what a me head tone
+*********************************************************************
+Current learning rate 0.000094
+2016-11-05 23:14:47.330894 (training examples processed: 30000)
+Cross Entropy Error: 49.98
+Net: V -710, W -37, E 1, U 33
+Abs: V 180311, W 6992, E 10024, U 9813
+Average weight per layer: V, W, E, U 0.143042143932 0.0355635573187 0.00795197836448 0.049912565314
+Sum: mV 2561709.9424, mW 779475495.5867, mE 12091958.7515, mU 8053331.5360, mb 8744111.5588, mc 8.2528
+good-bye bitter she a good-night worked pocket to limed it wave idea
+*********************************************************************
+Saved model parameters to saved_model. --------------------------------------------
+2016-11-05 23:17:16.019881 (training examples processed: 31000)
+Cross Entropy Error: 49.85
+Net: V -1132, W -37, E 0, U 34
+Abs: V 183809, W 7009, E 10058, U 9900
+Average weight per layer: V, W, E, U 0.145816994745 0.0356500701483 0.00797911369765 0.0503520277789
+Sum: mV 374.1758, mW 601.5642, mE 184.3562, mU 9.9721, mb 25.4956, mc 7.9070
+'they'd hadn't snoring moon 'only she 'you've all fetch and expecting to
+*********************************************************************
+2016-11-05 23:19:45.878199 (training examples processed: 32000)
+Cross Entropy Error: 49.78
+Net: V -1233, W -35, E -0, U 35
+Abs: V 187204, W 7025, E 10092, U 9992
+Average weight per layer: V, W, E, U 0.148510701182 0.035730194351 0.00800596256461 0.0508244444654
+Sum: mV 460.5836, mW 678.4428, mE 120.0852, mU 10.0023, mb 19.0424, mc 8.4054
+trial clamour was the nothing said how i whatll asked cat the
+*********************************************************************
+2016-11-05 23:22:13.769907 (training examples processed: 33000)
+Cross Entropy Error: 49.70
+Net: V -970, W -36, E -1, U 36
+Abs: V 190621, W 7041, E 10124, U 10079
+Average weight per layer: V, W, E, U 0.151221141596 0.0358100038275 0.00803137033656 0.0512646357712
+Sum: mV 453.1847, mW 829.6373, mE 150.7015, mU 10.5234, mb 21.7350, mc 7.8172
+valley the edges attitudes the bounding hug sentenced to to' turtle with
+*********************************************************************
+2016-11-05 23:24:43.214125 (training examples processed: 34000)
+Cross Entropy Error: 49.63
+Net: V -639, W -37, E -2, U 38
+Abs: V 193713, W 7056, E 10156, U 10164
+Average weight per layer: V, W, E, U 0.153673747085 0.035890686799 0.00805716498496 0.0516950446555
+Sum: mV 433.7782, mW 629.7425, mE 132.6428, mU 8.8445, mb 16.6335, mc 7.9338
+delighted pig 'digging spied pinned of a little persisted then smaller said
+*********************************************************************
+Current learning rate 0.000093
+2016-11-05 23:27:11.582079 (training examples processed: 35000)
+Cross Entropy Error: 49.67
+Net: V -110, W -39, E -3, U 38
+Abs: V 196585, W 7074, E 10190, U 10258
+Average weight per layer: V, W, E, U 0.15595286433 0.0359794348858 0.00808342248909 0.0521744097009
+Sum: mV 389.6584, mW 628.4729, mE 160.0280, mU 8.9950, mb 29.3404, mc 8.0573
+bustled i explained of the whiffling in a kitty he lost alice
+*********************************************************************
+2016-11-05 23:29:39.936045 (training examples processed: 36000)
+Cross Entropy Error: 49.61
+Net: V 384, W -38, E -4, U 41
+Abs: V 199082, W 7087, E 10223, U 10336
+Average weight per layer: V, W, E, U 0.157933124302 0.0360460655978 0.00811003209086 0.0525733055848
+Sum: mV 446.7908, mW 542.2175, mE 133.2620, mU 8.4497, mb 19.7190, mc 8.7085
+frumenty to she one raven to ancient never said she minded herself
+*********************************************************************
+2016-11-05 23:32:08.456615 (training examples processed: 37000)
+Cross Entropy Error: 49.55
+Net: V 904, W -38, E -6, U 42
+Abs: V 201638, W 7098, E 10255, U 10415
+Average weight per layer: V, W, E, U 0.159961110518 0.0361041982334 0.00813506738728 0.0529738840642
+Sum: mV 432.7655, mW 388.4349, mE 123.5253, mU 7.1891, mb 15.1621, mc 12.3399
+sit said the pricked owner: the window' other he if the moment's
+*********************************************************************
+2016-11-05 23:34:36.872505 (training examples processed: 38000)
+Cross Entropy Error: 49.50
+Net: V 1212, W -40, E -8, U 42
+Abs: V 204196, W 7117, E 10291, U 10515
+Average weight per layer: V, W, E, U 0.161990570086 0.0361983302119 0.00816409310846 0.0534813145572
+Sum: mV 450.0080, mW 703.1337, mE 106.2840, mU 10.2806, mb 15.6437, mc 8.2317
+brother's dusty guinea-pigs' and the grin said new-found in a upsetting she
+*********************************************************************
+2016-11-05 23:37:04.783972 (training examples processed: 39000)
+Cross Entropy Error: 49.51
+Net: V 1193, W -39, E -9, U 43
+Abs: V 206565, W 7136, E 10324, U 10603
+Average weight per layer: V, W, E, U 0.163869543908 0.0362960392833 0.00819027393301 0.0539288872942
+Sum: mV 437.8663, mW 665.5938, mE 111.0630, mU 8.2867, mb 16.2164, mc 8.1853
+dinner: till the queen that at the looking ' steady to monsters
+*********************************************************************
+Current learning rate 0.000092
+2016-11-05 23:39:33.090222 (training examples processed: 40000)
+Cross Entropy Error: 49.53
+Net: V 1026, W -40, E -11, U 44
+Abs: V 209035, W 7149, E 10356, U 10693
+Average weight per layer: V, W, E, U 0.165829033293 0.0363614286817 0.00821583771029 0.0543861329153
+Sum: mV 503.9255, mW 1046.1664, mE 122.9703, mU 18.9934, mb 20.6290, mc 7.9777
+constant that that she alice sort' way we washed it was mind
+*********************************************************************
+Saved model parameters to saved_model. --------------------------------------------
+2016-11-05 23:42:01.847893 (training examples processed: 41000)
+Cross Entropy Error: 49.48
+Net: V 842, W -40, E -13, U 44
+Abs: V 211254, W 7164, E 10389, U 10781
+Average weight per layer: V, W, E, U 0.167589651373 0.0364403925164 0.00824165337413 0.0548332558448
+Sum: mV 564.6181, mW 816.2812, mE 102.9445, mU 11.1941, mb 13.7536, mc 7.6833
+argue this on out at the into the nicely chin: they said
+*********************************************************************
+2016-11-05 23:44:30.174616 (training examples processed: 42000)
+Cross Entropy Error: 49.46
+Net: V 1056, W -39, E -14, U 45
+Abs: V 213351, W 7180, E 10423, U 10866
+Average weight per layer: V, W, E, U 0.169252941259 0.0365188904142 0.0082685606065 0.055269604486
+Sum: mV 474.2851, mW 783.3779, mE 125.6052, mU 11.4499, mb 17.3671, mc 8.0601
+'consider ful hell embroidered as she duchess all out and as she
+*********************************************************************
+2016-11-05 23:46:58.500166 (training examples processed: 43000)
+Cross Entropy Error: 49.39
+Net: V 1513, W -39, E -16, U 46
+Abs: V 215327, W 7194, E 10455, U 10949
+Average weight per layer: V, W, E, U 0.170820314743 0.036592376215 0.00829420486835 0.0556893629245
+Sum: mV 512.4096, mW 968.2015, mE 122.4356, mU 14.3793, mb 16.8011, mc 7.8718
+to-day me angrily fresh the dreamily pop and contented the grave tone:
+*********************************************************************
+2016-11-05 23:49:26.872362 (training examples processed: 44000)
+Cross Entropy Error: 49.41
+Net: V 2059, W -40, E -18, U 47
+Abs: V 217277, W 7209, E 10490, U 11038
+Average weight per layer: V, W, E, U 0.172367734558 0.0366656687804 0.00832151836488 0.0561420973704
+Sum: mV 483.1212, mW 816.0304, mE 108.0201, mU 13.4953, mb 19.5793, mc 8.0937
+[like planted house' lowing her what' was has cried lasted my 'it
+*********************************************************************
+Current learning rate 0.000091
+2016-11-05 23:51:54.720959 (training examples processed: 45000)
+Cross Entropy Error: 49.40
+Net: V 2391, W -42, E -19, U 47
+Abs: V 219125, W 7220, E 10522, U 11121
+Average weight per layer: V, W, E, U 0.173833485646 0.0367239925918 0.008347372512 0.0565641671867
+Sum: mV 503.8399, mW 1203.3145, mE 121.6223, mU 17.4250, mb 20.4074, mc 8.1883
+vorpal you executed 'shall the dormouse this a pricked was judge of
+*********************************************************************
+2016-11-05 23:54:22.298871 (training examples processed: 46000)
+Cross Entropy Error: 49.35
+Net: V 2606, W -42, E -21, U 48
+Abs: V 221032, W 7233, E 10557, U 11200
+Average weight per layer: V, W, E, U 0.175346755673 0.0367911879448 0.0083753276303 0.056966625291
+Sum: mV 688.4427, mW 2655.2864, mE 161.1118, mU 45.9672, mb 28.1177, mc 7.7768
+usual' greater was on the chorus: procession they said the quadrille not
+*********************************************************************
+2016-11-05 23:56:50.145655 (training examples processed: 47000)
+Cross Entropy Error: 49.42
+Net: V 2724, W -42, E -22, U 50
+Abs: V 222945, W 7251, E 10593, U 11280
+Average weight per layer: V, W, E, U 0.176863982537 0.0368828833598 0.00840338931996 0.0573736438559
+Sum: mV 512.3430, mW 830.6477, mE 122.8243, mU 15.3583, mb 17.3299, mc 7.6007
+helped a deal she asked otherwise' it towns said in a very
+*********************************************************************
+2016-11-05 23:59:17.979803 (training examples processed: 48000)
+Cross Entropy Error: 49.24
+Net: V 2736, W -42, E -24, U 49
+Abs: V 224864, W 7261, E 10624, U 11346
+Average weight per layer: V, W, E, U 0.17838629034 0.0369330907754 0.00842826862426 0.0577080783291
+Sum: mV 591.8538, mW 1428.9356, mE 123.5190, mU 21.9886, mb 20.1582, mc 7.5923
+mouse's and against her her me bones it askance telling at the
+*********************************************************************
+2016-11-06 00:01:47.185654 (training examples processed: 49000)
+Cross Entropy Error: 49.32
+Net: V 2780, W -42, E -25, U 49
+Abs: V 226707, W 7275, E 10655, U 11409
+Average weight per layer: V, W, E, U 0.179848311913 0.0370014824796 0.0084529065163 0.0580303055423
+Sum: mV 576.9597, mW 1197.5424, mE 128.9410, mU 17.5335, mb 20.3653, mc 7.6216
+gather the wave and river-banks of third and had asking no' butter
 *********************************************************************
 Current learning rate 0.000090
-2016-10-16 16:45:51.429116 (training examples processed: 8000)
-Loss: 6.056870
-Accuracy: 0.287584
-addition she had number a little soles was alice red manage man
-*********************************************************************
-2016-10-16 16:48:51.208963 (training examples processed: 9000)
-Loss: 6.011766
-Accuracy: 0.292889
-arrow hug puzzling but it march' they feet there had see you
-*********************************************************************
-2016-10-16 16:52:05.516355 (training examples processed: 10000)
-Loss: 5.969504
-Accuracy: 0.297860
-punished as before to thee we morning and very being other white
+2016-11-06 00:04:16.409690 (training examples processed: 50000)
+Cross Entropy Error: 49.17
+Net: V 2569, W -43, E -26, U 46
+Abs: V 228318, W 7288, E 10687, U 11471
+Average weight per layer: V, W, E, U 0.1811263825 0.0370709222072 0.0084779264027 0.0583448734056
+Sum: mV 656.6301, mW 1320.5284, mE 150.6542, mU 16.3600, mb 20.4198, mc 10.3058
+smokes earls of that you march 'twenty-four within a mutton-pies sobbing a
 *********************************************************************
 Saved model parameters to saved_model. --------------------------------------------
-2016-10-16 16:55:21.045367 (training examples processed: 11000)
-Loss: 5.930558
-Accuracy: 0.302441
-bolster there's asked with alice because i had not gave when would
+2016-11-06 00:06:44.571002 (training examples processed: 51000)
+Cross Entropy Error: 49.23
+Net: V 2161, W -43, E -28, U 46
+Abs: V 229700, W 7304, E 10720, U 11539
+Average weight per layer: V, W, E, U 0.182222711107 0.0371510844149 0.00850423737866 0.0586912062299
+Sum: mV 475.4475, mW 816.8017, mE 147.0241, mU 11.9614, mb 20.3819, mc 7.7264
+does' and older it was drawing and encouraging bow holds haven't phrase
 *********************************************************************
-Current learning rate 0.000085
-2016-10-16 16:58:20.219076 (training examples processed: 12000)
-Loss: 5.897511
-Accuracy: 0.306328
-running you'll and its 'until and great jabberwock branch her at the
+2016-11-06 00:09:12.835646 (training examples processed: 52000)
+Cross Entropy Error: 49.15
+Net: V 1605, W -43, E -30, U 48
+Abs: V 230926, W 7320, E 10750, U 11596
+Average weight per layer: V, W, E, U 0.18319574244 0.0372312947026 0.00852781159721 0.0589803562779
+Sum: mV 628.0868, mW 1303.8168, mE 151.3737, mU 19.5634, mb 25.7831, mc 7.7714
+gained playing: a doze be' what her quite saddle what alice her
 *********************************************************************
-2016-10-16 17:01:25.062519 (training examples processed: 13000)
-Loss: 5.870673
-Accuracy: 0.309485
-directions stick round a cheer in the remember out of her of'
+2016-11-06 00:11:41.218901 (training examples processed: 53000)
+Cross Entropy Error: 49.13
+Net: V 1054, W -43, E -32, U 46
+Abs: V 232181, W 7337, E 10779, U 11657
+Average weight per layer: V, W, E, U 0.184191273431 0.0373198099911 0.0085509135932 0.0592882957937
+Sum: mV 674.7793, mW 1055.6209, mE 133.9887, mU 14.2739, mb 19.8141, mc 7.9513
+expressing contempt and and sheep collected a read: drank and find 'seven
 *********************************************************************
-2016-10-16 17:04:30.283284 (training examples processed: 14000)
-Loss: 5.839152
-Accuracy: 0.313193
-officer done: the 'i went well but is another thrown of toilet
+2016-11-06 00:14:09.191178 (training examples processed: 54000)
+Cross Entropy Error: 49.09
+Net: V 491, W -42, E -35, U 45
+Abs: V 233274, W 7352, E 10807, U 11712
+Average weight per layer: V, W, E, U 0.185058186909 0.0373953499446 0.00857363100766 0.0595727941442
+Sum: mV 617.4964, mW 1165.1591, mE 149.3656, mU 18.4647, mb 20.8311, mc 7.9692
+loving feet' pretend another tolling this one white she good-bye all late:
 *********************************************************************
-2016-10-16 17:07:36.408785 (training examples processed: 15000)
-Loss: 5.809010
-Accuracy: 0.316738
-sal-volatile see amazing with still against it would can't william's to managing
+Current learning rate 0.000089
+2016-11-06 00:16:36.837546 (training examples processed: 55000)
+Cross Entropy Error: 49.18
+Net: V -171, W -41, E -38, U 45
+Abs: V 234454, W 7372, E 10836, U 11768
+Average weight per layer: V, W, E, U 0.185994673562 0.0374946215362 0.00859666257732 0.0598572384641
+Sum: mV 738.6437, mW 2961.0296, mE 157.2191, mU 38.0141, mb 33.1760, mc 7.3420
+verse: relented all the doubt and as she was volcano if you
 *********************************************************************
-Current learning rate 0.000080
-2016-10-16 17:10:41.643852 (training examples processed: 16000)
-Loss: 5.784754
-Accuracy: 0.319591
-presents got one alices vanishing it'll arrange so 'tell to carpenter 'i
+2016-11-06 00:19:04.377969 (training examples processed: 56000)
+Cross Entropy Error: 49.07
+Net: V -812, W -42, E -41, U 45
+Abs: V 235499, W 7389, E 10864, U 11821
+Average weight per layer: V, W, E, U 0.186823088929 0.0375822516086 0.00861877158279 0.0601236933348
+Sum: mV 734.1433, mW 1664.0681, mE 224.1608, mU 36.0534, mb 32.4664, mc 7.7841
+bending they hatter: lie so lion you know the lapping reached nap:
 *********************************************************************
-2016-10-16 17:13:45.316126 (training examples processed: 17000)
-Loss: 5.759602
-Accuracy: 0.322549
-vague white carrier' out to its yhtils no be at the other
+2016-11-06 00:22:01.290378 (training examples processed: 1000)
+Cross Entropy Error: 47.75
+Net: V -1434, W -41, E -45, U 42
+Abs: V 236683, W 7417, E 10903, U 11898
+Average weight per layer: V, W, E, U 0.187762781448 0.0377224414588 0.00864961918633 0.0605165719956
+Sum: mV 867.9552, mW 4934.5457, mE 461.5036, mU 103.4746, mb 69.7999, mc 8.0258
+mallets i somebody putting count it to 'sh gained whats can queer
 *********************************************************************
-2016-10-16 17:16:48.119330 (training examples processed: 18000)
-Loss: 5.739043
-Accuracy: 0.324968
-loudly into the hatter the door is too setting hurt not tremendously
+2016-11-06 00:24:28.773194 (training examples processed: 2000)
+Cross Entropy Error: 48.07
+Net: V -1939, W -40, E -48, U 42
+Abs: V 237405, W 7435, E 10935, U 11960
+Average weight per layer: V, W, E, U 0.188335383448 0.0378178638083 0.00867503984621 0.0608308901723
+Sum: mV 778.0973, mW 1665.7029, mE 170.5012, mU 44.8408, mb 28.0387, mc 7.5142
+roots round the dreadful' in the brillig of the christmas very seldom
 *********************************************************************
-2016-10-16 17:19:51.986745 (training examples processed: 19000)
-Loss: 5.715392
-Accuracy: 0.327749
-appearing alice said it a could said in last ships its easily
+2016-11-06 00:26:56.422411 (training examples processed: 3000)
+Cross Entropy Error: 48.17
+Net: V -2493, W -41, E -50, U 40
+Abs: V 237861, W 7453, E 10966, U 12030
+Average weight per layer: V, W, E, U 0.188697198642 0.0379075976211 0.00869970412453 0.0611891158937
+Sum: mV 597.7894, mW 1441.9983, mE 164.8073, mU 30.3824, mb 26.8326, mc 7.7713
+unsatisfactory the birthday flurry castles wood' conger-eel a one in in same
 *********************************************************************
-Current learning rate 0.000075
-2016-10-16 17:22:54.879051 (training examples processed: 20000)
-Loss: 5.688281
-Accuracy: 0.330938
-presents well with get english for how with one rather bite' then
-*********************************************************************
-Saved model parameters to saved_model. --------------------------------------------
-2016-10-16 17:25:57.837976 (training examples processed: 21000)
-Loss: 5.672397
-Accuracy: 0.332806
-every begins and tweedledee dormouse dear a come way and we turned
-*********************************************************************
+2016-11-06 00:29:21.984861 (training examples processed: 4000)
+Cross Entropy Error: nan
+Net: V nan, W nan, E nan, U nan
+Abs: V nan, W nan, E nan, U nan
+Average weight per layer: V, W, E, U nan nan nan nan
+Sum: mV nan, mW nan, mE nan, mU nan, mb nan, mc nan
+tureen whiter whiter whiter whiter whiter whiter whiter whiter whiter whiter whiter
