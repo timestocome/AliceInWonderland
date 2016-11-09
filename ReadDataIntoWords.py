@@ -45,7 +45,7 @@ print ("Total words in text", len(words))
 # find unique words
 words_set = set(words)
 unique_words = len(words_set)
-print("Unique words", len(words_set))
+#print("Unique words", len(words_set))
 
 # get word frequencies
 # sort by most common in case we want to ditch some 
@@ -55,7 +55,9 @@ word_list_by_frequency = list(word_frequency_dictionary.keys())
 
 
 # create indexed dictionary of words ( tokenize words in text )
-word_index = list(range(1, len(words_set)))
+word_index = list(range(0, len(words_set)))
+word_index = [i + 1 for i in word_index]        # remove 0
+
 
 word_dictionary = {}
 for key, value in zip(word_list_by_frequency, word_index):
@@ -85,12 +87,14 @@ tokenized_document = []
 for w in words:
     token = word_dictionary.get(w)
     if token is None:
+        print("no token", w)
         tokenized_document.append(-1)
     else:
         tokenized_document.append(token[0])
 
 np.save('tokenized_document.npy', tokenized_document)
 #print(tokenized_document)
+print("min/max", min(tokenized_document), max(tokenized_document))
 
 
 

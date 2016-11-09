@@ -47,23 +47,23 @@ import random
 
 ###############################################################################
 # constants
-unique_words = 4924             # unique words in our dictionary, get this from the output after running ReadDataIntoWords.py
+unique_words = 4924 + 1         # unique words in our dictionary, get this from the output after running ReadDataIntoWords.py
 rng = np.random.RandomState(42) # set up random stream
 not_zero = 1e-6                 # avoid divide by zero errors
 
 
 # network settings to tweak
 n_hidden = 256               # hidden layer number of nodes ( hidden layer width )
-n_epoch = 4                 # number of times to loop through full data set
+n_epoch = 4                  # number of times to loop through full data set
 
-learning_rate =1e-4        # limits swing in gradients
-adjust_learning_rate = 1e-6 # decrease learning rate in regular steps
-frequency_adjust_learning_rate = 5000  # how often to decrease learning rate
+learning_rate = 1e-4        # limits swing in gradients
+adjust_learning_rate = 0.99 # decrease learning rate in regular steps
+frequency_adjust_learning_rate = 2000  # how often to decrease learning rate
 
 
 
-decay = 0.9                  # weight for prior information
-length_of_text = 8           # size of string to feed into RNN
+decay = 0.95                 # weight for prior information
+length_of_text = 4           # size of string to feed into RNN
 n_bptt_truncate = -1         # threshold back propagation through time, -1 means no early cut off
 
 
@@ -146,7 +146,8 @@ v_word_to_index = np.vectorize(word_to_index)
 
 #############################################################################
 # useful things
-print("Expected loss for random predictions: %f" %(np.log(unique_words)))
+random_loss = np.log(unique_words) * length_of_text
+print("Expected loss for random predictions: %f" % (random_loss) )
 
 #############################################################################
 # build GRU network
@@ -448,7 +449,7 @@ def train_with_sgd(model, X_train, y_train, learning_rate=learning_rate, nepoch=
     
         # dumb, steady learning rate adjustment
         if num_examples_seen % frequency_adjust_learning_rate == 0:
-            learning_rate -= adjust_learning_rate       # steadily decrease learning rate
+            learning_rate *= adjust_learning_rate       # steadily decrease learning rate
             print ("Current learning rate %f" % learning_rate)
 
         # Optionally send some output to user
@@ -472,17 +473,18 @@ def sgd_callback(model, num_examples_seen):
 
   print("\n%s (training examples processed: %d)" % (dt, num_examples_seen))
   print("Cross Entropy Error: %.2f" % loss)
+  print("Accuracy: ", (random_loss - loss) / random_loss * 100. )
 
   #################################################################  
   # debugging help - comment out when all is well to speed up training
-  v, w, e, u = model.sum_weights()
-  print("Net: V %.0f, W %.0f, E %.0f, U %.0f" % (v, w, e, u))
-  v, w, e, u = model.abs_sum_weights()
-  print("Abs: V %.0f, W %.0f, E %.0f, U %.0f" % (v, w, e, u))
-  vl, wl, el, ul = model.weights_per_layer()
-  print("Average weight per layer: V, W, E, U", v/vl, w/wl, e/el, u/ul)
-  mv, mw, me, mu, mb, mc = model.cache_per_layer()
-  print("Sum: mV %.4f, mW %.4f, mE %.4f, mU %.4f, mb %.4f, mc %.4f" % (mv, mw, me, mu, mb, mc))
+  #v, w, e, u = model.sum_weights()
+  #print("Net: V %.0f, W %.0f, E %.0f, U %.0f" % (v, w, e, u))
+  #v, w, e, u = model.abs_sum_weights()
+  #print("Abs: V %.0f, W %.0f, E %.0f, U %.0f" % (v, w, e, u))
+  #vl, wl, el, ul = model.weights_per_layer()
+  #print("Average weight per layer: V, W, E, U", v/vl, w/wl, e/el, u/ul)
+  #mv, mw, me, mu, mb, mc = model.cache_per_layer()
+  #print("Sum: mV %.4f, mW %.4f, mE %.4f, mU %.4f, mb %.4f, mc %.4f" % (mv, mw, me, mu, mb, mc))
   ##################################################################
 
   generate_sentence(model, index_to_word, word_to_index)

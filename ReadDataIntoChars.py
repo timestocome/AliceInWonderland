@@ -50,6 +50,7 @@ char_list_by_frequency = list(char_frequency_dictionary.keys())
 
 # create indexed dictionary of chars ( tokenize words in text )
 char_index = list(range(1, len(chars_set)))
+char_index = [i + i for i in char_index]        # remove zeros
 
 char_dictionary = {}
 for key, value in zip(char_list_by_frequency, char_index):
