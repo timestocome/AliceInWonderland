@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Frequency of Words in Alice in Wonderland and Through the Looking Glass</title>
+<style>
+
+.bar {
+  fill: steelblue;
+}
+
+</style>
+
+
+<svg width="1024" height="98500"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+<script>
+
+var svg = d3.select("svg"),
+    margin = {top:30, right: 10, bottom: 10, left: 100},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height");
+
+    console.log(height)
+
+var x = d3.scaleLinear().rangeRound([0, width]);
+var y = d3.scaleBand().rangeRound([0, height]).padding(0.1);
+
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+d3.csv("sorted_word_frequency.csv", function(d) {
+  d.frequency = +d.frequency;
+  return d;
+}, function(error, data) {
+  if (error) throw error;
+
+
+  x.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+  y.domain(data.map(function(d) { return d.word; }));
+
+
+  g.append("text")
+    .attr("x", 300)
+    .attr("y", 300)
+    .style("font-size", "18px")
+    .text("Frequency of words in 'Alice in Wonderland' and 'Through the Looking Glass'");
+
+  g.append("g")
+      .attr("class", "axis axis--x")
+      .call(d3.axisTop(x).ticks(10))
+
+  g.append("g")
+      .attr("class", "axis axis--y")
+      .style("font-size", "15px")
+      .call(d3.axisLeft(y));
+
+    
+
+  g.selectAll(".bar")
+    .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("y", function(d) { return y(d.word); })
+      .attr("x", 0 )
+      .attr("height", y.bandwidth())
+      .attr("width", function(d) { return  x(d.frequency); });
+      
+});
+
+</script>
