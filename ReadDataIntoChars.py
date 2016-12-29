@@ -9,7 +9,7 @@ from collections import OrderedDict
 
 import numpy as np
 import pickle
-
+import os
 
 
 # open file and read in text
@@ -25,9 +25,9 @@ data = data.replace('\n', ' ')
 file.close()
 
 # break text into chars
-#words = data.split()
-#number_of_words = len(words)
-#print ("Total words in text", len(words))
+# words = data.split()
+# number_of_words = len(words)
+# print ("Total words in text", len(words))
 number_of_chars = len(data)
 print("Total chars in text", number_of_chars)
 
@@ -36,8 +36,8 @@ print("Total chars in text", number_of_chars)
 # find unique chars
 chars_set = set(data)
 unique_chars = len(chars_set)
-print("Unique chars", len(chars_set))
-
+#print("Unique chars", len(chars_set))
+#print("unique chars", chars_set)
 
 
 
@@ -49,8 +49,10 @@ char_list_by_frequency = list(char_frequency_dictionary.keys())
 
 
 # create indexed dictionary of chars ( tokenize words in text )
-char_index = list(range(1, len(chars_set)))
-char_index = [i + i for i in char_index]        # remove zeros
+char_index = list(range(0, len(chars_set)))
+char_index = [i+1 for i in char_index]        # remove zeros
+print(char_index)
+
 
 char_dictionary = {}
 for key, value in zip(char_list_by_frequency, char_index):
@@ -76,17 +78,61 @@ with open('char_index_dictionary.pkl', "wb") as f:
 
 
 
-
+############################################
+# change this:
+# make one file per sentence
+# and stuff all the sentences into a directory 
 # tokenize entire training document
-tokenized_document = []
+
+
+
+# store files in data directory
+current_directory = os.getcwd()
+data_dir = 'char_sentences'
+
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir) 
+os.chdir(data_dir)
+
+# full sentences are too long - some reach 921 chars
+# going to use phrases instead
+max_length = 0
+min_length = 999999999
+tokenized_string = []
+loop_count = 0
 for c in data:
+
+    # while not end of sentence
+    # ?, !, ., 
     token = char_dictionary.get(c)
-    if token is None:
-        tokenized_document.append(-1)
-    else:
-        tokenized_document.append(token[0])
+    #print(c, token)
+    
+    tokenized_string.append(token)
 
-np.save('char_tokenized_document.npy', tokenized_document)
+    if c == '?' or c == '.' or c == '!' or c == ',':
+
+        # save at end of sentence with unique id        
+        loop_count += 1
+        file_name = 'char_%s' % str(loop_count)
+        flattened = [y for x in tokenized_string for y in x]
+        np.save(file_name, flattened)
+        if len(tokenized_string) > max_length: max_length = len(tokenized_string)
+        if len(tokenized_string) < min_length: min_length = len(tokenized_string)
+        tokenized_string = []
+
+       
+        #print(file_name)
+
+print("min/max", max_length, min_length)
 
 
-
+# check files
+file_list = os.listdir(os.getcwd())
+print(file_list)
+count = 0
+for f in file_list:    
+    count += 1
+    if count > 10: break
+    test = np.load(f)
+    print(test)
+    print("**********************")
