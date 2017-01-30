@@ -1,7 +1,10 @@
 # AliceInWonderland
 Exploring RNNs, GRUs, and RNN-RBMs using the Lewis Carroll 'Alice in Wonderland' series as the data source
 
-Code is in Python 3.5/Theano 0.8
+Tested a Markov chain against the text and it beat all my neural network models. 
+
+Just for fun I added a Twitter bot script that will read in the text, generate new text with a Markov Chain and post it to Twitter. This is the skelaton for another project, just added it here as a fun toy.
+
 
 Final model is RNN_Alice.py
 Final data cleaning is ParseDataIntoSentences.py
