@@ -32,6 +32,7 @@ data = data.replace('\"', '')
 data = data.replace('(', '')
 data = data.replace(')', '')
 data = data.replace('?', '')
+data = data.replace(':', '')
 #print(data)
 
 file.close()
